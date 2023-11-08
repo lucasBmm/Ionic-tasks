@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AlertButton, AlertController, AlertInput } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -8,5 +9,31 @@ import { Component } from '@angular/core';
 export class HomePage {
 
   constructor() {}
+
+  public alertButtons = [
+    {
+      text: 'Cancelar',
+      role: 'cancel'
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () => {
+        console.log('Alert confirmed');
+      },
+    },
+  ];
+
+  public alertInputs = [
+    {
+      name: "Task",
+      placeholder: 'Tarefa',
+      type: "text"
+    },
+    {
+      name: "date",
+      type: "date",
+    },
+  ];
 
 }
