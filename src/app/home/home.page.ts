@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { AlertButton, AlertController, AlertInput } from '@ionic/angular';
+import { AlertButton, AlertController, AlertInput, ToastController } from '@ionic/angular';
+import { TaskService } from '../services/task.service';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +9,9 @@ import { AlertButton, AlertController, AlertInput } from '@ionic/angular';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(private taskService: TaskService, private toastController: ToastController) {}
 
-  public alertButtons = [
+  public alertButtons: AlertButton[] = [
     {
       text: 'Cancelar',
       role: 'cancel'
@@ -18,15 +19,28 @@ export class HomePage {
     {
       text: 'OK',
       role: 'confirm',
-      handler: () => {
-        console.log('Alert confirmed');
+      handler: (alertData: { [key: string]: string }) => {
+        console.log(alertData)
+        if (alertData['task'] != "") {
+          this.taskService.addTask(alertData['task'], alertData['date']);
+        } else {
+          this.presentToast();
+        }
       },
     },
   ];
 
-  public alertInputs = [
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: "Preencha a tarefa!",
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  public alertInputs: AlertInput[] = [
     {
-      name: "Task",
+      name: "task",
       placeholder: 'Tarefa',
       type: "text"
     },

@@ -13,8 +13,16 @@ export class TaskService {
     return this.tasks;
   }
 
-  public addTask() {
+  public addTask(valor: string, data: string) {
+    data = data.replace("-", "/");
+    let task: Task = {
+      value: valor,
+      date: new Date(data),
+      done: false
+    };
 
+    this.tasks.push(task);
+    console.log(this.tasks);
   }
 
   public deleteTask() {
