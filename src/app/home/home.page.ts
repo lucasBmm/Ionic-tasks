@@ -9,7 +9,7 @@ import { TaskService } from '../services/task.service';
 })
 export class HomePage {
 
-  constructor(private taskService: TaskService, private toastController: ToastController) {}
+  constructor(public taskService: TaskService, private toastController: ToastController) {}
 
   public alertButtons: AlertButton[] = [
     {
